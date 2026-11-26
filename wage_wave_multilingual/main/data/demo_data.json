@@ -1,0 +1,157 @@
+{
+  "profiles": [
+    {
+      "username": "demo_land_alice",
+      "name": "Alice Green",
+      "registering_as": "land_owner",
+      "address": "Riverside farms",
+      "land_size": "120.00",
+      "machines_available": 0
+    },
+    {
+      "username": "demo_land_ben",
+      "name": "Ben Fields",
+      "registering_as": "land_owner",
+      "address": "Riverside farms",
+      "land_size": "75.50",
+      "machines_available": 0
+    },
+    {
+      "username": "demo_land_carla",
+      "name": "Carla Orchard",
+      "registering_as": "land_owner",
+      "address": "Riverside farms",
+      "land_size": "210.00",
+      "machines_available": 0
+    },
+    {
+      "username": "demo_labour_dan",
+      "name": "Daniel Okoro",
+      "registering_as": "labour",
+      "address": "Green Valley",
+      "land_size": null,
+      "machines_available": 0
+    },
+    {
+      "username": "demo_labour_emma",
+      "name": "Emma Stone",
+      "registering_as": "labour",
+      "address": "Green Valley",
+      "land_size": null,
+      "machines_available": 0
+    },
+    {
+      "username": "demo_labour_farah",
+      "name": "Farah Malik",
+      "registering_as": "labour",
+      "address": "Green Valley",
+      "land_size": null,
+      "machines_available": 0
+    },
+    {
+      "username": "demo_labour_gideon",
+      "name": "Gideon Wells",
+      "registering_as": "labour",
+      "address": "Green Valley",
+      "land_size": null,
+      "machines_available": 0
+    },
+    {
+      "username": "demo_machine_tractor",
+      "name": "Tom Tractor",
+      "registering_as": "machinery",
+      "address": "Equipment Cooperative",
+      "land_size": null,
+      "machines_available": 2
+    },
+    {
+      "username": "demo_machine_harvester",
+      "name": "Hana Harvester",
+      "registering_as": "machinery",
+      "address": "Equipment Cooperative",
+      "land_size": null,
+      "machines_available": 1
+    },
+    {
+      "username": "demo_machine_irrigation",
+      "name": "Ibrahim Irrigation",
+      "registering_as": "machinery",
+      "address": "Equipment Cooperative",
+      "land_size": null,
+      "machines_available": 3
+    }
+  ],
+  "projects": [
+    {
+      "project_name": "Demo A - Riverside Vegetables",
+      "address": "Riverside North Field",
+      "land_owner": "demo_land_alice",
+      "labour": "demo_labour_dan",
+      "machinery_contributor": "demo_machine_tractor",
+      "expected_timeline": "12 weeks",
+      "invested_money": "1450000.00",
+      "expected_revenue": "2500000.00",
+      "description": "A fully staffed vegetable project growing tomatoes, peppers, and leafy greens.",
+      "status": "active"
+    },
+    {
+      "project_name": "Demo B - Ben Fields Grains",
+      "address": "Ben Fields East Plot",
+      "land_owner": "demo_land_ben",
+      "labour": null,
+      "machinery_contributor": "demo_machine_harvester",
+      "expected_timeline": "16 weeks",
+      "invested_money": "1750000.00",
+      "expected_revenue": "3000000.00",
+      "description": "A grain project with land and a harvester ready, looking for a labour team.",
+      "status": "looking_for_labour"
+    },
+    {
+      "project_name": "Demo C - Orchard Renewal",
+      "address": "Carla Orchard West Block",
+      "land_owner": null,
+      "labour": "demo_labour_emma",
+      "machinery_contributor": null,
+      "expected_timeline": "20 weeks",
+      "invested_money": "1150000.00",
+      "expected_revenue": "2250000.00",
+      "description": "An orchard renewal project looking for land and machinery partners.",
+      "status": "looking_for_land_machinery"
+    },
+    {
+      "project_name": "Demo D - Community Harvest",
+      "address": "Community Farm South Field",
+      "land_owner": "demo_land_carla",
+      "labour": "demo_labour_farah",
+      "machinery_contributor": "demo_machine_irrigation",
+      "expected_timeline": "14 weeks",
+      "invested_money": "1550000.00",
+      "expected_revenue": "2750000.00",
+      "description": "A completed community harvest project that brought three local resources together.",
+      "status": "completed"
+    }
+  ],
+  "ratings": [
+    {
+      "project": "Demo D - Community Harvest",
+      "reviewer": "demo_land_carla",
+      "reviewed_user": "demo_labour_farah",
+      "rating": 5,
+      "comment": "Excellent coordination throughout the harvest."
+    },
+    {
+      "project": "Demo D - Community Harvest",
+      "reviewer": "demo_labour_farah",
+      "reviewed_user": "demo_land_carla",
+      "rating": 4,
+      "comment": "A generous and well-prepared land partner."
+    },
+    {
+      "project": "Demo D - Community Harvest",
+      "reviewer": "demo_machine_irrigation",
+      "reviewed_user": "demo_labour_farah",
+      "rating": 5,
+      "comment": "Very reliable and easy to work with."
+    }
+  ]
+}

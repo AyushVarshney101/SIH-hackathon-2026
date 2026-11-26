@@ -12,6 +12,13 @@ python manage.py runserver
 
 Open http://127.0.0.1:8000/.
 
+## Demo data
+
+The demo accounts, profiles, projects, and ratings are defined in
+`main/data/demo_data.json`. Run `python manage.py load_demo_data` to load or
+refresh that data into Django's database. This JSON file is a demo-data source,
+not a replacement for SQLite or the database used for accounts and app changes.
+
 ## Deploy to Vercel
 
 This repository keeps the Django app in the `wage_wave_multilingual` folder. In
