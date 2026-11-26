@@ -12,6 +12,21 @@ python manage.py runserver
 
 Open http://127.0.0.1:8000/.
 
+## Deploy to Vercel
+
+This repository keeps the Django app in the `wage_wave_multilingual` folder. In
+Vercel, set **Project Settings → Build and Deployment → Root Directory** to
+`wage_wave_multilingual`, then redeploy. The Vercel function and routing
+configuration are in that folder.
+
+Add a `DJANGO_SECRET_KEY` environment variable in the Vercel project settings
+for Production (and Preview if needed). For a custom domain, set
+`DJANGO_ALLOWED_HOSTS` to a comma-separated list that includes that domain.
+
+The project currently uses SQLite. Vercel's function filesystem is temporary,
+so database changes are not persistent between deployments or function
+instances; use a hosted database before relying on saved user data.
+
 ## Demo accounts
 
 All demo accounts use the password `wage-wave-demo`.
