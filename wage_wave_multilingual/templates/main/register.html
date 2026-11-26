@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Wage Wave | {% trans "Create your profile" %}{% endblock %}
+
+{% block content %}
+<section class="form-page register-page">
+    <div class="form-intro">
+        <p class="eyebrow">{% trans "Start here" %}</p>
+        <h1>{% trans "Create your Wage Wave profile." %}</h1>
+        <p>{% trans "Tell us what you can bring to the next farming project." %}</p>
+    </div>
+    <form class="account-form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="form-row two-columns">
+            <div class="field"><label for="id_name">{% trans "Name" %}</label>{{ form.name }}{{ form.name.errors }}</div>
+            <div class="field"><label for="id_username">{% trans "Username" %}</label>{{ form.username }}{{ form.username.errors }}</div>
+        </div>
+        <div class="field"><label for="id_registering_as">{% trans "Registering as" %}</label>{{ form.registering_as }}{{ form.registering_as.errors }}</div>
+        <div class="field"><label for="id_address">{% trans "Address" %}</label>{{ form.address }}{{ form.address.errors }}</div>
+        <div class="conditional-field" data-role="machinery">
+            <div class="field"><label for="id_machines_available">{% trans "Machines available" %}</label>{{ form.machines_available }}{{ form.machines_available.errors }}</div>
+        </div>
+        <div class="form-row two-columns">
+            <div class="field"><label for="id_password">{% trans "Password" %}</label>{{ form.password }}{{ form.password.errors }}</div>
+            <div class="field"><label for="id_confirm_password">{% trans "Confirm password" %}</label>{{ form.confirm_password }}{{ form.confirm_password.errors }}</div>
+        </div>
+        <button class="primary-action form-submit" type="submit">{% trans "Create profile" %} <span aria-hidden="true">&rarr;</span></button>
+        <p class="form-switch">{% trans "Already registered?" %} <a href="{% url 'login' %}">{% trans "Log in" %}</a></p>
+    </form>
+</section>
+<script>
+    const roleSelect = document.getElementById('id_registering_as');
+    const conditionalFields = document.querySelectorAll('.conditional-field');
+    function updateConditionalFields() {
+        conditionalFields.forEach((field) => {
+            const visible = field.dataset.role === roleSelect.value;
+            field.hidden = !visible;
+            field.querySelector('input').disabled = !visible;
+        });
+    }
+    roleSelect.addEventListener('change', updateConditionalFields);
+    updateConditionalFields();
+</script>
+{% endblock %}

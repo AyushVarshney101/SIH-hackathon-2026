@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load inr %}
+
+{% block title %}Wage Wave | {% trans "Profile" %}{% endblock %}
+
+{% block content %}
+<section class="profile-page">
+    <div class="profile-heading">
+        <div>
+            <p class="eyebrow">{% trans "Your profile" %}</p>
+            <h1>{{ profile.name }}</h1>
+            <p class="profile-role">{{ profile.get_registering_as_display }}</p>
+        </div>
+    </div>
+
+    <div class="profile-information">
+        <div><span>{% trans "Name" %}</span><strong>{{ profile.name }}</strong></div>
+        <div><span>{% trans "Username" %}</span><strong>{{ profile.user.username }}</strong></div>
+        <div><span>{% trans "Role" %}</span><strong>{{ profile.get_registering_as_display }}</strong></div>
+        <div><span>{% trans "Address" %}</span><strong>{{ profile.address }}</strong></div>
+        {% if profile.registering_as == 'land_owner' %}
+            <div><span>{% trans "Land size" %}</span><strong>{% blocktrans with acres=profile.land_size %}{{ acres }} acres{% endblocktrans %}</strong></div>
+        {% elif profile.registering_as == 'machinery' %}
+            <div><span>{% trans "Machines available" %}</span><strong>{{ profile.machines_available }}</strong></div>
+        {% endif %}
+    </div>
+
+    <section class="profile-project-section">
+        <div class="profile-section-heading">
+            <p class="eyebrow">{% trans "Your work" %}</p>
+            <h2>{% trans "Current Projects" %}</h2>
+        </div>
+        {% if current_projects %}
+            <div class="profile-project-grid">
+                {% for item in current_projects %}
+                    <article class="profile-project-card project-card">
+                        <div class="project-card-heading profile-card-heading">
+                            <div>
+                                <p class="project-status"><span class="status-dot status-{{ item.project.status }}"></span>{{ item.project.get_status_display }}</p>
+                                <h3>{{ item.project.project_name }}</h3>
+                            </div>
+                            <span class="project-address">{{ item.project.address }}</span>
+                        </div>
+                        <span class="profile-project-role">{% blocktrans with role=item.role %}Your role: {{ role }}{% endblocktrans %}</span>
+                        <div class="project-resources">
+                            <div><span>{% trans "Land" %}</span><strong class="{% if item.project.land_owner %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if item.project.land_owner %}&#10003;{% else %}&#9675;{% endif %}</b>{% if item.project.land_owner %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                            <div><span>{% trans "Labour" %}</span><strong class="{% if item.project.labour %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if item.project.labour %}&#10003;{% else %}&#9675;{% endif %}</b>{% if item.project.labour %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                            <div><span>{% trans "Machinery" %}</span><strong class="{% if item.project.machinery_contributor %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if item.project.machinery_contributor %}&#10003;{% else %}&#9675;{% endif %}</b>{% if item.project.machinery_contributor %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                        </div>
+                        <div class="project-metrics">
+                            <div><span>{% trans "Expected timeline" %}</span><strong>{{ item.project.expected_timeline }}</strong></div>
+                            <div><span>{% trans "Expected revenue" %}</span><strong>₹{{ item.project.expected_revenue|inr }}</strong></div>
+                        </div>
+                        <div class="project-card-footer"><a class="button button-secondary" href="{% url 'project_detail' item.project.id %}">{% trans "View Project" %} <span aria-hidden="true">&rarr;</span></a></div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="profile-empty">{% trans "You are not involved in any current projects." %}</p>
+        {% endif %}
+    </section>
+
+    <section class="profile-project-section completed-section">
+        <div class="profile-section-heading">
+            <p class="eyebrow">{% trans "Your track record" %}</p>
+            <h2>{% trans "Completed Projects" %}</h2>
+        </div>
+        {% if completed_projects %}
+            <div class="profile-project-grid">
+                {% for item in completed_projects %}
+                    <article class="profile-project-card completed-card project-card">
+                        <div class="project-card-heading profile-card-heading">
+                            <div>
+                                <p class="project-status"><span class="status-dot status-completed"></span>{% trans "Completed" %}</p>
+                                <h3>{{ item.project.project_name }}</h3>
+                            </div>
+                            <span class="project-address">{{ item.project.address }}</span>
+                        </div>
+                        <p class="completed-role">{% trans "Your role:" %} <strong>{{ item.role }}</strong></p>
+                        <div class="project-resources">
+                            <div><span>{% trans "Land" %}</span><strong class="{% if item.project.land_owner %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if item.project.land_owner %}&#10003;{% else %}&#9675;{% endif %}</b>{% if item.project.land_owner %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                            <div><span>{% trans "Labour" %}</span><strong class="{% if item.project.labour %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if item.project.labour %}&#10003;{% else %}&#9675;{% endif %}</b>{% if item.project.labour %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                            <div><span>{% trans "Machinery" %}</span><strong class="{% if item.project.machinery_contributor %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if item.project.machinery_contributor %}&#10003;{% else %}&#9675;{% endif %}</b>{% if item.project.machinery_contributor %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                        </div>
+                        <div class="project-metrics">
+                            <div><span>{% trans "Expected timeline" %}</span><strong>{{ item.project.expected_timeline }}</strong></div>
+                            <div><span>{% trans "Expected revenue" %}</span><strong>₹{{ item.project.expected_revenue|inr }}</strong></div>
+                        </div>
+                        <div class="completed-detail">
+                            <span>{% trans "Other participants" %}</span>
+                            {% if item.participants %}
+                                <strong>{{ item.participants|join:', ' }}</strong>
+                            {% else %}
+                                <strong>{% trans "No other participants recorded" %}</strong>
+                            {% endif %}
+                        </div>
+                        <div class="completed-detail">
+                            <span>{% trans "Ratings received" %}</span>
+                            {% if item.ratings %}
+                                {% for rating in item.ratings %}
+                                    <strong class="rating-stars">{{ rating.stars }}</strong>
+                                    {% if rating.rating.comment %}<p class="rating-comment">&ldquo;{{ rating.rating.comment }}&rdquo;</p>{% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <strong>{% trans "No ratings yet" %}</strong>
+                            {% endif %}
+                        </div>
+                        {% if item.rate_participants %}
+                            <div class="rating-actions">
+                                <span>{% trans "Rate other participants" %}</span>
+                                {% for participant in item.rate_participants %}
+                                    <div class="participant-rating">
+                                        <div class="participant-rating-heading">
+                                            <strong>{{ participant.profile.name }}</strong>
+                                            <small>{{ participant.role }}</small>
+                                        </div>
+                                        {% if participant.rating %}
+                                            <strong class="rating-stars">{{ participant.stars }}</strong>
+                                            {% if participant.rating.comment %}<p class="rating-comment">&ldquo;{{ participant.rating.comment }}&rdquo;</p>{% endif %}
+                                        {% else %}
+                                            <form class="rating-form" method="post" action="{% url 'rate_participant' item.project.id participant.profile.id %}">
+                                                {% csrf_token %}
+                                                <div class="rating-fields">
+                                                    {{ rating_form.rating }}
+                                                    {{ rating_form.comment }}
+                                                    <button class="button button-secondary" type="submit">{% trans "Save rating" %}</button>
+                                                </div>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <a class="text-action" href="{% url 'project_detail' item.project.id %}">{% trans "View project" %} <span aria-hidden="true">&rarr;</span></a>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="profile-empty">{% trans "Completed projects will appear here." %}</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

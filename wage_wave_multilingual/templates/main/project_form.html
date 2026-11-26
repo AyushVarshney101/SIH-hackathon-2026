@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Wage Wave | {% trans "Create Project" %}{% endblock %}
+
+{% block content %}
+<section class="form-page project-form-page">
+    <div class="form-intro">
+        <p class="eyebrow">{% trans "New project" %}</p>
+        <h1>{% trans "Bring a project to life." %}</h1>
+        <p>{% trans "Add the details that help people understand what this project needs." %}</p>
+    </div>
+    <form class="account-form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+        {% for field in form %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <button class="button button-primary form-submit" type="submit">{% trans "Create Project" %} <span aria-hidden="true">&rarr;</span></button>
+    </form>
+</section>
+{% endblock %}

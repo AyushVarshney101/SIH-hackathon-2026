@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Wage Wave | {% trans "Marketplace" %}{% endblock %}
+
+{% block content %}
+<section class="marketplace-page">
+    <div class="marketplace-heading">
+        <p class="eyebrow">{% trans "The Wage Wave Marketplace" %}</p>
+        <h1>{% trans "Find where you fit." %}</h1>
+        <p class="page-intro">{% trans "Connect your land, labour, or machinery to a farming project that needs it." %}</p>
+    </div>
+
+    <div class="marketplace-choices">
+        <a class="marketplace-choice" href="{% url 'find_work' %}">
+            <span class="marketplace-number">01</span>
+            <span class="marketplace-choice-content">
+                <strong>{% trans "Find Work" %}</strong>
+                <span>{% trans "For people looking for farming work." %}</span>
+            </span>
+            <span class="marketplace-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="marketplace-choice" href="{% url 'list_land' %}">
+            <span class="marketplace-number">02</span>
+            <span class="marketplace-choice-content">
+                <strong>{% trans "Find Land" %}</strong>
+                <span>{% trans "For land owners ready to contribute." %}</span>
+            </span>
+            <span class="marketplace-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="marketplace-choice" href="{% url 'contribute_machinery' %}">
+            <span class="marketplace-number">03</span>
+            <span class="marketplace-choice-content">
+                <strong>{% trans "Find Machinery" %}</strong>
+                <span>{% trans "For machinery owners with tools to share." %}</span>
+            </span>
+            <span class="marketplace-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+    </div>
+</section>
+{% endblock %}

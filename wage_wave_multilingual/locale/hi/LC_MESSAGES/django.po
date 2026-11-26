@@ -1,0 +1,403 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Wage Wave 1.0\n"
+"Report-Msgid-Bug-To: \n"
+"POT-Creation-Date: 2026-09-12 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hi\n"
+
+
+msgid "A clear field"
+msgstr "एक खाली खेत"
+
+msgid "A cooperative farming network"
+msgstr "एक सहकारी कृषि नेटवर्क"
+
+msgid "About this project"
+msgstr "इस प्रोजेक्ट के बारे में"
+
+msgid "Add the details that help people understand what this project needs."
+msgstr "वे विवरण जोड़ें जिससे लोगों को पता चले कि इस प्रोजेक्ट को किन चीज़ों की ज़रूरत है।"
+
+msgid "Address"
+msgstr "पता"
+
+msgid "All caught up"
+msgstr "सब कुछ अपडेट है"
+
+msgid "Already registered?"
+msgstr "पहले से पंजीकृत हैं?"
+
+msgid "Available"
+msgstr "उपलब्ध"
+
+msgid "Back to Marketplace"
+msgstr "मार्केटप्लेस पर वापस जाएं"
+
+msgid "Back to dashboard"
+msgstr "डैशबोर्ड पर वापस जाएं"
+
+msgid "Bring a project to life."
+msgstr "एक प्रोजेक्ट को साकार करें।"
+
+msgid "Completed"
+msgstr "पूर्ण"
+
+msgid "Completed Projects"
+msgstr "पूर्ण प्रोजेक्ट"
+
+msgid "Completed projects will appear here."
+msgstr "पूर्ण प्रोजेक्ट यहां दिखाई देंगे।"
+
+msgid "Confirm password"
+msgstr "पासवर्ड की पुष्टि करें"
+
+msgid "Connect your land, labour, or machinery to a farming project that needs it."
+msgstr "अपनी ज़मीन, श्रम या मशीनरी को उस कृषि प्रोजेक्ट से जोड़ें जिसे इसकी ज़रूरत है।"
+
+msgid "Contribute Machinery"
+msgstr "मशीनरी उपलब्ध कराएं"
+
+msgid "Create Project"
+msgstr "प्रोजेक्ट बनाएं"
+
+msgid "Create a new project"
+msgstr "नया प्रोजेक्ट बनाएं"
+
+msgid "Create a profile"
+msgstr "प्रोफ़ाइल बनाएं"
+
+msgid "Create a project"
+msgstr "प्रोजेक्ट बनाएं"
+
+msgid "Create profile"
+msgstr "प्रोफ़ाइल बनाएं"
+
+msgid "Create the first farming project and start bringing the pieces together."
+msgstr "पहला कृषि प्रोजेक्ट बनाएं और हिस्सों को जोड़ना शुरू करें।"
+
+msgid "Create your Wage Wave profile."
+msgstr "अपनी Wage Wave प्रोफ़ाइल बनाएं।"
+
+msgid "Create your profile"
+msgstr "अपनी प्रोफ़ाइल बनाएं"
+
+msgid "Current Projects"
+msgstr "वर्तमान प्रोजेक्ट"
+
+msgid "Enrol"
+msgstr "नामांकन करें"
+
+msgid "Expected revenue"
+msgstr "अपेक्षित राजस्व"
+
+msgid "Expected timeline"
+msgstr "अपेक्षित समयसीमा"
+
+msgid "FARMING PROJECT"
+msgstr "कृषि प्रोजेक्ट"
+
+msgid "Farming works better together"
+msgstr "साथ मिलकर खेती बेहतर होती है"
+
+msgid "Farmland ready for its next season"
+msgstr "अगले मौसम के लिए तैयार खेत"
+
+msgid "Farmland, farmers, and agricultural machinery"
+msgstr "खेत, किसान और कृषि मशीनरी"
+
+msgid "Find Land"
+msgstr "ज़मीन खोजें"
+
+msgid "Find Machinery"
+msgstr "मशीनरी खोजें"
+
+msgid "Find Work"
+msgstr "काम खोजें"
+
+msgid "Find a project looking for manual labour."
+msgstr "मैनुअल श्रम की तलाश वाला प्रोजेक्ट खोजें।"
+
+msgid "Find a project looking for productive farmland."
+msgstr "उपजाऊ खेत की तलाश वाला प्रोजेक्ट खोजें।"
+
+msgid "Find a project looking for useful equipment."
+msgstr "उपयोगी उपकरण की तलाश वाला प्रोजेक्ट खोजें।"
+
+msgid "Find where you fit."
+msgstr "देखें आप कहां फिट बैठते हैं।"
+
+msgid "For land owners ready to contribute."
+msgstr "योगदान देने के लिए तैयार भूमि मालिकों के लिए।"
+
+msgid "For machinery owners with tools to share."
+msgstr "उपकरण साझा करने वाले मशीनरी मालिकों के लिए।"
+
+msgid "For people looking for farming work."
+msgstr "कृषि कार्य की तलाश करने वालों के लिए।"
+
+msgid "Green farmland ready to be cultivated"
+msgstr "खेती के लिए तैयार हरा-भरा खेत"
+
+msgid "Have land to share?"
+msgstr "साझा करने के लिए ज़मीन है?"
+
+msgid "Have land, skills or machinery?"
+msgstr "ज़मीन, कौशल या मशीनरी है?"
+
+msgid "Have machinery to share?"
+msgstr "साझा करने के लिए मशीनरी है?"
+
+msgid "Home"
+msgstr "होम"
+
+msgid "How the idea works"
+msgstr "यह विचार कैसे काम करता है"
+
+msgid "Idle land. Ready hands. Useful machines. Wage Wave brings them together to create collaborative farming projects."
+msgstr "बेकार पड़ी ज़मीन। तैयार हाथ। उपयोगी मशीनें। Wage Wave इन्हें साथ लाकर सहयोगी कृषि प्रोजेक्ट बनाता है।"
+
+msgid "Invested money"
+msgstr "निवेश की गई राशि"
+
+msgid "LABOUR"
+msgstr "श्रम"
+
+msgid "LAND"
+msgstr "ज़मीन"
+
+msgid "Labour"
+msgstr "श्रम"
+
+msgid "Labour Required"
+msgstr "श्रम की आवश्यकता है"
+
+msgid "Land"
+msgstr "ज़मीन"
+
+msgid "Land Owner"
+msgstr "भूमि मालिक"
+
+msgid "Land Required"
+msgstr "ज़मीन की आवश्यकता है"
+
+msgid "Land size"
+msgstr "ज़मीन का आकार"
+
+msgid "Language"
+msgstr "भाषा"
+
+msgid "List Land"
+msgstr "ज़मीन सूचीबद्ध करें"
+
+msgid "Log In"
+msgstr "लॉग इन करें"
+
+msgid "Log in"
+msgstr "लॉग इन करें"
+
+msgid "Log in to see your place in the next project."
+msgstr "अगले प्रोजेक्ट में अपनी जगह देखने के लिए लॉग इन करें।"
+
+msgid "Logout"
+msgstr "लॉगआउट"
+
+msgid "Looking for Labour"
+msgstr "श्रम की तलाश"
+
+msgid "Looking for Land"
+msgstr "ज़मीन की तलाश"
+
+msgid "Looking for Machinery"
+msgstr "मशीनरी की तलाश"
+
+msgid "Looking for work?"
+msgstr "काम की तलाश है?"
+
+msgid "MACHINERY"
+msgstr "मशीनरी"
+
+msgid "Machinery"
+msgstr "मशीनरी"
+
+msgid "Machinery Required"
+msgstr "मशीनरी की आवश्यकता है"
+
+msgid "Machinery ready to move"
+msgstr "चलने के लिए तैयार मशीनरी"
+
+msgid "Machines available"
+msgstr "उपलब्ध मशीनें"
+
+msgid "Make what is waiting become productive."
+msgstr "जो प्रतीक्षा में है उसे उत्पादक बनाएं।"
+
+msgid "Marketplace"
+msgstr "मार्केटप्लेस"
+
+msgid "NEXT STEP"
+msgstr "अगला कदम"
+
+msgid "Name"
+msgstr "नाम"
+
+msgid "Needed"
+msgstr "आवश्यक"
+
+msgid "New project"
+msgstr "नया प्रोजेक्ट"
+
+msgid "New projects will appear here when they need this resource."
+msgstr "जब इस संसाधन की आवश्यकता होगी तो नए प्रोजेक्ट यहां दिखाई देंगे।"
+
+msgid "New to Wage Wave?"
+msgstr "Wage Wave पर नए हैं?"
+
+msgid "No description has been added yet."
+msgstr "अभी तक कोई विवरण नहीं जोड़ा गया है।"
+
+msgid "No other participants recorded"
+msgstr "कोई अन्य भागीदार दर्ज नहीं है"
+
+msgid "No project description has been added yet."
+msgstr "अभी तक कोई प्रोजेक्ट विवरण नहीं जोड़ा गया है।"
+
+msgid "No projects yet."
+msgstr "अभी तक कोई प्रोजेक्ट नहीं है।"
+
+msgid "No ratings yet"
+msgstr "अभी तक कोई रेटिंग नहीं"
+
+msgid "Other participants"
+msgstr "अन्य भागीदार"
+
+msgid "Our motive"
+msgstr "हमारा उद्देश्य"
+
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgid "People ready to work"
+msgstr "काम के लिए तैयार लोग"
+
+msgid "Pick up where you left off."
+msgstr "वहीं से शुरू करें जहां आपने छोड़ा था।"
+
+msgid "Profile"
+msgstr "प्रोफ़ाइल"
+
+msgid "Rate other participants"
+msgstr "अन्य भागीदारों को रेट करें"
+
+msgid "Ratings received"
+msgstr "प्राप्त रेटिंग"
+
+msgid "Ready to contribute?"
+msgstr "योगदान देने के लिए तैयार हैं?"
+
+msgid "Register"
+msgstr "पंजीकरण करें"
+
+msgid "Registering as"
+msgstr "इस रूप में पंजीकरण करें"
+
+msgid "Role"
+msgstr "भूमिका"
+
+msgid "Save rating"
+msgstr "रेटिंग सहेजें"
+
+msgid "See the farming projects bringing land, people, and tools together."
+msgstr "देखें कैसे कृषि प्रोजेक्ट ज़मीन, लोगों और उपकरणों को एक साथ लाते हैं।"
+
+msgid "See the projects you can join or are already part of."
+msgstr "वे प्रोजेक्ट देखें जिनमें आप शामिल हो सकते हैं या पहले से भाग हैं।"
+
+msgid "Start here"
+msgstr "यहां से शुरू करें"
+
+msgid "Status"
+msgstr "स्थिति"
+
+msgid "Tell us what you can bring to the next farming project."
+msgstr "हमें बताएं कि आप अगले कृषि प्रोजेक्ट में क्या ला सकते हैं।"
+
+msgid "The Wage Wave Marketplace"
+msgstr "Wage Wave मार्केटप्लेस"
+
+msgid "Three resources. One shared harvest."
+msgstr "तीन संसाधन। एक साझा फसल।"
+
+msgid "Timeline"
+msgstr "समयसीमा"
+
+msgid "Tractor working on agricultural land"
+msgstr "कृषि भूमि पर काम करता ट्रैक्टर"
+
+msgid "Turning idle resources into working farms."
+msgstr "बेकार संसाधनों को काम करते खेतों में बदलना।"
+
+msgid "Username"
+msgstr "उपयोगकर्ता नाम"
+
+msgid "View Project"
+msgstr "प्रोजेक्ट देखें"
+
+msgid "View current projects"
+msgstr "वर्तमान प्रोजेक्ट देखें"
+
+msgid "View project"
+msgstr "प्रोजेक्ट देखें"
+
+msgid "View your details, history, and reputation."
+msgstr "अपना विवरण, इतिहास और प्रतिष्ठा देखें।"
+
+msgid "Wage Wave exists to help unused farmland produce again, create opportunities for farmers, and put idle machinery to work. When these resources meet, a new farming project can begin."
+msgstr "Wage Wave अप्रयुक्त खेतों को फिर से उत्पादक बनाने, किसानों के लिए अवसर बनाने और बेकार मशीनरी को काम पर लगाने के लिए मौजूद है। जब ये संसाधन मिलते हैं, तो एक नया कृषि प्रोजेक्ट शुरू हो सकता है।"
+
+msgid "Wage Wave opportunities"
+msgstr "Wage Wave अवसर"
+
+msgid "Welcome back"
+msgstr "वापसी पर स्वागत है"
+
+msgid "What would you like to do next?"
+msgstr "आप आगे क्या करना चाहेंगे?"
+
+msgid "YOUR PROFILE"
+msgstr "आपकी प्रोफ़ाइल"
+
+msgid "YOUR WORK"
+msgstr "आपका काम"
+
+msgid "You are not involved in any current projects."
+msgstr "आप वर्तमान में किसी प्रोजेक्ट में शामिल नहीं हैं।"
+
+msgid "Your dashboard"
+msgstr "आपका डैशबोर्ड"
+
+msgid "Your profile"
+msgstr "आपकी प्रोफ़ाइल"
+
+msgid "Your role:"
+msgstr "आपकी भूमिका:"
+
+msgid "Your track record"
+msgstr "आपका ट्रैक रिकॉर्ड"
+
+msgid "Your work"
+msgstr "आपका काम"
+
+msgid "Welcome, {{ profile_name }}."
+msgstr "स्वागत है, {{ profile_name }}।"
+
+msgid "{{ acres }} acres"
+msgstr "{{ acres }} एकड़"
+
+msgid "Your role: {{ role }}"
+msgstr "आपकी भूमिका: {{ role }}"
+
+msgid "No open {{ resource_title_lower }} opportunities."
+msgstr "कोई खुला {{ resource_title_lower }} अवसर नहीं है।"

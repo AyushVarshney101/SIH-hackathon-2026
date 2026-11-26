@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load inr %}
+
+{% block title %}Wage Wave | {{ project.project_name }}{% endblock %}
+
+{% block content %}
+<section class="project-detail-page">
+    <a class="back-link" href="{% url 'current_projects' %}">&larr; {% trans "Current Projects" %}</a>
+    <p class="eyebrow detail-status"><span class="status-dot status-{{ project.status }}"></span>{{ project.get_status_display }}</p>
+    <h1>{{ project.project_name }}</h1>
+    <p class="detail-address">{{ project.address }}</p>
+
+    <div class="position-strip">
+        <div class="position {% if project.land_owner %}filled{% else %}vacant{% endif %}">
+            <span class="position-symbol">{% if project.land_owner %}&#10003;{% else %}&#9675;{% endif %}</span>
+            <span>{% trans "Land Owner" %}</span>
+            <strong>{% if project.land_owner %}{{ project.land_owner.name }}{% else %}{% trans "Land Required" %}{% endif %}</strong>
+        </div>
+        <div class="position {% if project.labour %}filled{% else %}vacant{% endif %}">
+            <span class="position-symbol">{% if project.labour %}&#10003;{% else %}&#9675;{% endif %}</span>
+            <span>{% trans "Labour" %}</span>
+            <strong>{% if project.labour %}{{ project.labour.name }}{% else %}{% trans "Labour Required" %}{% endif %}</strong>
+        </div>
+        <div class="position {% if project.machinery_contributor %}filled{% else %}vacant{% endif %}">
+            <span class="position-symbol">{% if project.machinery_contributor %}&#10003;{% else %}&#9675;{% endif %}</span>
+            <span>{% trans "Machinery" %}</span>
+            <strong>{% if project.machinery_contributor %}{{ project.machinery_contributor.name }}{% else %}{% trans "Machinery Required" %}{% endif %}</strong>
+        </div>
+    </div>
+
+    <div class="detail-layout">
+        <div class="detail-description">
+            <p class="eyebrow">{% trans "About this project" %}</p>
+            {% trans "No project description has been added yet." as no_description %}
+            <p>{{ project.description|default:no_description }}</p>
+        </div>
+        <div class="detail-facts">
+            <div><span>{% trans "Expected timeline" %}</span><strong>{{ project.expected_timeline }}</strong></div>
+            <div><span>{% trans "Invested money" %}</span><strong>₹{{ project.invested_money|inr }}</strong></div>
+            <div><span>{% trans "Expected revenue" %}</span><strong>₹{{ project.expected_revenue|inr }}</strong></div>
+            <div><span>{% trans "Status" %}</span><strong>{{ project.get_status_display }}</strong></div>
+        </div>
+    </div>
+</section>
+{% endblock %}

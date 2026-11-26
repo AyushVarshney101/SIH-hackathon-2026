@@ -1,0 +1,175 @@
+3 PARTS : ppt , prototype and vocal presentation.
+
+
+PPT IS DONE ALREADY : main point will be cited in Vocal Presentation.
+Changes: there is a underscore in place of space in a box on second slide, in last slide add work 'Reported' in first bullet point.
+
+
+
+PROTOTYPE PRESENTATION
+
+Home page: (intro of what we do, who we are) 
+↓
+Registration of different entities like : Land Owners, farming tool Owners, Labours 
+↓
+Current Projects page : how exactly it is listing jobs in respective sections for different type of peoples
+↓
+Labour's perspective : (Logging in as a labour, Dashboard, enrolling in a project); similarly for Land Owners, Farming tool Owners.
+↓
+Project dashboard : list of different peoples doing different parts of the project, expected timeline, invested money, expected Revenue.
+
+
+
+VOCAL PRESENTATION
+
+Greeting
+↓
+Problem Statement : Idle resources at different ends of current farming system. 
+↓
+Solution : Our approach to solve the problem.
+↓
+Application : Why it should Work.
+↓
+Impact : Scale of problem
+↓
+Other Social & Environmental Benefits : less pollution due to reusing idle resources rather manufacturing new ones, driving prices lower through higher yield of production.
+↓
+Why us : Our beliefs and qualities making us different from rest.
+
+
+
+
+
+
+
+
+SCRIPT
+
+Good morning everyone,
+I am Ayush varshney (Team Leader of Omni Lucid), here presenting solution for problem statement ID : SIH26193
+
+The exact problem we are presenting solution for is :
+In rural areas, we have people looking for work, farmland that is not being cultivated , and agricultural machinery that remains idle for entire crop maturity period.
+
+
+Why not pool them to create a group which can generate economic value?
+that is exactly what my solution is Presenting Wage Wave by our team Omni Lucid.
+
+In omni lucid we call these resource pools projects. 
+soo, a project is a customizable template designed for efficent and seemless colaboration between different parties which are farmers/machinery owners/land owners, who can enroll themselves or create a new one as per they need
+Once all the basic resources for the project is gathered then the status of project can be changed to In progress from To Be Started.
+
+Now I would like to pass it over to tanmay tejas to discuss technical details of our project.
+
+{{{
+
+PROTOTYPE SHOW CASE: 
+
+Home page overview
+
+registering as a new user 
+enrolling in a project
+creating a new project
+
+logging in as some different type of audience
+enrolling in the freshly created project
+log out
+
+log in by the previous user name(who created the project)
+showing that by entering wrong password it don't let us log in 
+showing that the other person enrolled in the project will be shown in this person's account too.
+
+finally changing the status of the project to completed.
+
+}}}
+
+
+
+soo, here is the version zero of the solution we tried to create, 
+let's talk about the uniqueness and viability of our solution
+1. as everyone has stake in it, everyone will be serious about the work to be completed
+2. 
+
+talking about the scale of impact we want to create,
+
+there is more than 10 million hectare of land left uncultivated which can be converted into agricultural land growing our agriculture sector by more than 50 thousand crores.
+
+one more thing I like to mention there are a major percentage of the village farming workforce is unemployed or working contractually with not a fair wage/ sometimes being exploited too because they doesn't own a land.
+
+Wage Wave is a promise of mine to create trust through transparency, efficiency through free market dynamics and above all drive the price of food low to make it accessible to every single Indian.
+
+there is a comparison table I present in my ppt to showcase our uniqueness in the present market.
+
+Thank You All
+Singing off
+Team Leader
+Omni Lucid.
+
+
+
+
+
+
+PROTOTYPE SCHEMA
+
+Idea of wage wave is connecting idle farmland owners with unemployed farmers and farming machine owners to create a pool which can generate dividend to all.
+
+Wage Wave:  
+It a Django web app having a home page which highlights two things : 1. what we do (our goal); 2. who we are (mission of founders). home page will have link to register/log in page and current projects page.
+
+Database: 
+using the default database SQLite of Django. having a single table having only four columns: name, password, registering as, address.
+
+Registration Page: 
+Register form has following fields to be filled by user : name, username (must be unique) , registering as (a drop down menu having three options to select form: land owner, labour, idle farming machinery) {land size if land owner is selected, machines available if idle farming machinery is selected}, 2 line address, password, conformation password. Once registered user should automatically be logged in without the need to log in again.
+Log In page should have only two fields username and password. if both field filled by user matches with respective entry in the database table. then user should get logged in.
+
+Dashboard:
+Once logged in user should automatically forwarded to a dashboard page having link to find work, profile, current projects pages in case of labour; list land, profile, current project pages in case of Land owners; contribute idle machinery, profile, current projects in case of idle farming machinery.
+
+Current Projects Page : 
+
+Current Projects page consists a list of projects each in different bordered containers.
+A Project is a pool consists of land owners, farming machine contributors, manual labours. also having things listed like : list of different peoples doing different parts of the project, expected timeline, invested money, expected Revenue.
+
+if user is logged in as anyone one of three types, he should be able to create a new project. there will be a + sing button on Current Project page to list a new project which lead to a form having fields like land owner's username, manual farmer's username, farming machine contributor's username, address, etc.
+>>On creation of a new project the empty slots should gets listed to its respective sections For EXAMPLE - if somebody created a project but didn't fill the field of manual labour then there will be a job post created and listed in its respective section which is find work Page which is accessible by manual labours. 
+also if someone is enrolled at any slot of some project he has the option to give rating to everyone after the project is done.
+
+find work, contribute farming machinery, list land pages : 
+simple pages where there is a filtered list for each group to select form. list contains jobs in different bordered containers having a enrole button at the bottom right corner of each container.
+
+Profile Page:
+contains all field user filled at time of registration.
+list of jobs working on.
+list of jobs he has done with the rating if given by other members of that project.
+
+
+
+
+
+Features to be added:
+
+status should be (not started, in progress and completed)
+
+Rating system after completion of task; strike out
+
+one more section on dashboard which says already listed tools/jobs like where some people can prelist and when somebody creates project he can directly include the prelisted jobs/tools.
+
+HOME PAGE DESIGN CHANGES:
+font style to arial
+bold the main points
+log in/register button highlighted.
+background images inserting
+logo change to ours one.
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load inr %}
+
+{% block title %}Wage Wave | {% trans "Current Projects" %}{% endblock %}
+
+{% block content %}
+<section class="projects-page">
+    <div class="projects-heading">
+        <div>
+            <p class="eyebrow">Wage Wave</p>
+            <h1>{% trans "Current Projects" %}</h1>
+            <p class="page-intro">{% trans "See the farming projects bringing land, people, and tools together." %}</p>
+        </div>
+        <a class="create-project-button" href="{% url 'project_create' %}" aria-label="{% trans 'Create a new project' %}" title="{% trans 'Create a new project' %}">+</a>
+    </div>
+
+    {% if projects %}
+        <div class="project-list">
+            {% for project in projects %}
+                <article class="project-card">
+                    <div class="project-card-heading">
+                        <div>
+                            <p class="project-status"><span class="status-dot status-{{ project.status }}"></span>{{ project.get_status_display }}</p>
+                            <h2>{{ project.project_name }}</h2>
+                        </div>
+                        <span class="project-address">{{ project.address }}</span>
+                    </div>
+                    <div class="project-resources">
+                        <div><span>{% trans "Land" %}</span><strong class="{% if project.land_owner %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if project.land_owner %}&#10003;{% else %}&#9675;{% endif %}</b>{% if project.land_owner %}{{ project.land_owner.name }}{% else %}{% trans "Looking for Land" %}{% endif %}</strong></div>
+                        <div><span>{% trans "Labour" %}</span><strong class="{% if project.labour %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if project.labour %}&#10003;{% else %}&#9675;{% endif %}</b>{% if project.labour %}{{ project.labour.name }}{% else %}{% trans "Looking for Labour" %}{% endif %}</strong></div>
+                        <div><span>{% trans "Machinery" %}</span><strong class="{% if project.machinery_contributor %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if project.machinery_contributor %}&#10003;{% else %}&#9675;{% endif %}</b>{% if project.machinery_contributor %}{{ project.machinery_contributor.name }}{% else %}{% trans "Looking for Machinery" %}{% endif %}</strong></div>
+                    </div>
+                    <div class="project-card-footer">
+                        <div class="project-metrics">
+                            <div><span>{% trans "Timeline" %}</span><strong>{{ project.expected_timeline }}</strong></div>
+                            <div><span>{% trans "Expected revenue" %}</span><strong>₹{{ project.expected_revenue|inr }}</strong></div>
+                        </div>
+                        <a class="button button-secondary" href="{% url 'project_detail' project.id %}">{% trans "View Project" %} <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-projects">
+            <p class="eyebrow">{% trans "A clear field" %}</p>
+            <h2>{% trans "No projects yet." %}</h2>
+            <p>{% trans "Create the first farming project and start bringing the pieces together." %}</p>
+            <a class="button button-primary" href="{% url 'project_create' %}">{% trans "Create a project" %} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

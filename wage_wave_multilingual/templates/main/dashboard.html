@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Wage Wave | {% trans "Your dashboard" %}{% endblock %}
+
+{% block content %}
+<section class="dashboard-page">
+    <p class="eyebrow">{% trans "Your dashboard" %}</p>
+    <h1>{% blocktrans with profile_name=profile.name %}Welcome, {{ profile_name }}.{% endblocktrans %}</h1>
+    <p class="dashboard-intro">{% trans "What would you like to do next?" %}</p>
+    <div class="dashboard-actions">
+        {% if dashboard_role == 'labour' %}
+            <a class="dashboard-card dashboard-primary" href="{% url 'find_work' %}"><span class="dashboard-card-number">01 / {% trans "NEXT STEP" %}</span><strong>{% trans "Looking for work?" %}</strong><span class="dashboard-card-caption">{% trans "Find a project looking for manual labour." %}</span><span class="dashboard-card-action">{% trans "Find Work" %} <span aria-hidden="true">&rarr;</span></span></a>
+        {% elif dashboard_role == 'land_owner' %}
+            <a class="dashboard-card dashboard-primary" href="{% url 'list_land' %}"><span class="dashboard-card-number">01 / {% trans "NEXT STEP" %}</span><strong>{% trans "Have land to share?" %}</strong><span class="dashboard-card-caption">{% trans "Find a project looking for productive farmland." %}</span><span class="dashboard-card-action">{% trans "List Land" %} <span aria-hidden="true">&rarr;</span></span></a>
+        {% elif dashboard_role == 'machinery' %}
+            <a class="dashboard-card dashboard-primary" href="{% url 'contribute_machinery' %}"><span class="dashboard-card-number">01 / {% trans "NEXT STEP" %}</span><strong>{% trans "Have machinery to share?" %}</strong><span class="dashboard-card-caption">{% trans "Find a project looking for useful equipment." %}</span><span class="dashboard-card-action">{% trans "Contribute Machinery" %} <span aria-hidden="true">&rarr;</span></span></a>
+        {% endif %}
+        <a class="dashboard-card" href="{% url 'current_projects' %}"><span class="dashboard-card-number">02 / {% trans "YOUR WORK" %}</span><strong>{% trans "Current Projects" %}</strong><span class="dashboard-card-caption">{% trans "See the projects you can join or are already part of." %}</span><span class="dashboard-card-arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="dashboard-card" href="{% url 'profile' %}"><span class="dashboard-card-number">03 / {% trans "YOUR PROFILE" %}</span><strong>{% trans "Profile" %}</strong><span class="dashboard-card-caption">{% trans "View your details, history, and reputation." %}</span><span class="dashboard-card-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+</section>
+{% endblock %}

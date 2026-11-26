@@ -1,0 +1,534 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Wage Wave{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* MINIMALIST VOICE WIDGET CSS */
+        #voice-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 340px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            z-index: 9999;
+            font-family: system-ui, sans-serif;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .voice-header {
+            background: #0d47a1;
+            color: white;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .voice-body {
+            padding: 24px;
+            text-align: center;
+        }
+
+        #status-text {
+            font-size: 16px;
+            color: #424242;
+            margin-top: 0;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        #status-text.status-error {
+            color: #c62828;
+        }
+
+        #mainMicBtn {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+            transition: background 0.2s;
+        }
+
+        #mainMicBtn:hover { filter: brightness(1.1); }
+        
+        .btn-connecting { background: #f57c00 !important; box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3) !important; }
+        .btn-listening { background: #d32f2f !important; box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3) !important; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{% url 'home' %}">
+            <span class="brand-mark">WW</span>
+            <span>Wage Wave</span>
+        </a>
+        <nav class="site-nav">
+            {% if user.is_authenticated %}
+                <a href="{% url 'home' %}">{% trans "Home" %}</a>
+                <a href="{% url 'marketplace' %}">{% trans "Marketplace" %}</a>
+                <a href="{% url 'current_projects' %}">{% trans "Current Projects" %}</a>
+                <a href="{% url 'profile' %}">{% trans "Profile" %}</a>
+                <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            {% else %}
+                <a href="{% url 'home' %}">{% trans "Home" %}</a>
+                <a href="{% url 'marketplace' %}">{% trans "Marketplace" %}</a>
+                <a href="{% url 'login' %}">{% trans "Log in" %}</a>
+                <a class="nav-action" href="{% url 'register' %}">{% trans "Register" %}</a>
+            {% endif %}
+            <form action="{% url 'set_language' %}" method="post" class="lang-switcher">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.path }}">
+                {% get_available_languages as AVAILABLE_LANGUAGES %}
+                <select name="language" onchange="this.form.submit()" aria-label="{% trans 'Language' %}">
+                    {% for lang_code, lang_name in AVAILABLE_LANGUAGES %}
+                        <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>{{ lang_name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </nav>
+    </header>
+    {% if messages %}
+        <div class="message-stack" aria-live="polite">
+            {% for message in messages %}
+                <div class="site-message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <span>Wage Wave</span>
+        <span>{% trans "Turning idle resources into working farms." %}</span>
+    </footer>
+
+    <!-- FARMER-FRIENDLY VOICE WIDGET -->
+    <div id="voice-widget">
+        <div class="voice-header">
+            <span>🗣️</span> आवाज़ सहायक (Voice Assistant)
+        </div>
+        <div class="voice-body">
+            <div id="activeScreen">
+                <p id="status-text">माइक बटन दबाएं और हिंदी में रजिस्टर या लॉगिन करें।<br><small style="color:#777;">(Press Mic to Register or Log in)</small></p>
+                <button id="mainMicBtn">
+                    <span id="btnIcon">🎙️</span> 
+                    <span id="btnText">शुरू करें (Start)</span>
+                </button>
+            </div>
+            
+            <div id="successScreen" style="display: none;">
+                <div style="font-size: 45px; margin-bottom: 10px;">✅</div>
+                <div id="successTitle" style="color: #2e7d32; font-size: 20px; font-weight: bold;">सफल!</div>
+                <div id="successSubtitle" style="color: #666; font-size: 14px; margin-top: 8px;">आपको डैशबोर्ड पर ले जाया जा रहा है...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. PERMANENT API KEY & CONFIG
+        // ==========================================
+        // IMPORTANT SECURITY NOTE: shipping a real API key inside client-side
+        // JS (as done here) means every visitor to the site can open dev tools
+        // and steal it. Since this key has already been pasted into a public
+        // chat/screenshot, treat it as burned — regenerate it at
+        // https://aistudio.google.com/apikey and swap the new one in below.
+        // For anything beyond a local demo, generate short-lived ephemeral
+        // tokens on your Django backend instead:
+        // https://ai.google.dev/gemini-api/docs/ephemeral-tokens
+        const PERMANENT_API_KEY = "AQ.Ab8RN6KwVIyNVKmbUtxrNYIxsfrsKgHomx4zSBJcMRYEyCx5nA";
+
+        // gemini-2.0-flash-exp is retired and the v1alpha endpoint is stale.
+        // Use the current Live API model + v1beta endpoint instead.
+        const MODEL_NAME = "gemini-3.1-flash-live-preview";
+        const WS_BASE = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent";
+
+        const mainMicBtn = document.getElementById("mainMicBtn");
+        const statusText = document.getElementById("status-text");
+        const btnText = document.getElementById("btnText");
+        const btnIcon = document.getElementById("btnIcon");
+        const activeScreen = document.getElementById("activeScreen");
+        const successScreen = document.getElementById("successScreen");
+
+        let ws = null;
+        let audioContext = null;
+        let nextPlayTime = 0;
+        let inputAudioContext = null;
+        let localStream = null;
+        let processor = null;
+        let microphoneRunning = false;
+        let isConnecting = false;
+        let userStopped = false;      // true only when the person taps "Stop" themselves
+        let connectRetries = 0;
+        let reconnectTimer = null;
+        const MAX_CONNECT_RETRIES = 2; // silent retries for a handshake that never finishes
+
+        // ==========================================
+        // 2. UI UPDATER
+        // ==========================================
+        function updateUI(state, message, isError = false) {
+            mainMicBtn.classList.remove("btn-connecting", "btn-listening");
+            statusText.classList.toggle("status-error", Boolean(isError));
+
+            if (state === "idle") {
+                statusText.innerHTML = message || "माइक बटन दबाएं और हिंदी में रजिस्टर या लॉगिन करें।<br><small style='color:#777;'>(Press Mic to Register or Log in)</small>";
+                btnText.innerText = "शुरू करें (Start)";
+                btnIcon.innerText = "🎙️";
+            } else if (state === "connecting") {
+                statusText.innerText = message || "तैयार हो रहा है... (Connecting...)";
+                btnText.innerText = "रुकें (Wait...)";
+                btnIcon.innerText = "⏳";
+                mainMicBtn.classList.add("btn-connecting");
+            } else if (state === "listening") {
+                statusText.innerText = "🟢 हम सुन रहे हैं... (Listening...)";
+                btnText.innerText = "बंद करें (Stop)";
+                btnIcon.innerText = "⏹️";
+                mainMicBtn.classList.add("btn-listening");
+            }
+        }
+
+        // ==========================================
+        // 3. MASTER CLICK CONTROLLER
+        // ==========================================
+        mainMicBtn.addEventListener("click", async () => {
+            if (microphoneRunning || isConnecting) {
+                userStopped = true;
+                stopAll();
+                return;
+            }
+
+            userStopped = false;
+            connectRetries = 0;
+            isConnecting = true;
+            updateUI("connecting");
+
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+                });
+
+                audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+                if (audioContext.state === "suspended") await audioContext.resume();
+
+                openWebSocket();
+            } catch (error) {
+                stopAll({
+                    idleMessage: "माइक एक्सेस नहीं मिला। कृपया माइक की अनुमति दें और दोबारा कोशिश करें।<br><small style='color:#777;'>(Mic access denied — allow the microphone and tap the button to retry.)</small>",
+                    isError: true,
+                });
+            }
+        });
+
+        // ==========================================
+        // 3b. WEBSOCKET CONNECTION
+        // Split out from the click handler so a dropped handshake can retry
+        // itself (see MAX_CONNECT_RETRIES below) without re-asking for mic
+        // permission or losing the already-open mic stream.
+        // ==========================================
+        function openWebSocket() {
+            // Explicitly use subprotocol header for AQ token compatibility if needed, or standard query param
+            ws = new WebSocket(WS_BASE + "?key=" + encodeURIComponent(PERMANENT_API_KEY));
+
+            ws.onopen = () => {
+                ws.send(JSON.stringify({
+                    setup: {
+                        model: `models/${MODEL_NAME}`,
+                        generationConfig: { responseModalities: ["AUDIO"] },
+                        systemInstruction: {
+                            parts: [{ text: `You are a friendly voice assistant for Wage Wave, a cooperative farming platform. Speak ONLY simple Hindi. Ask ONE question at a time. Never ask for information already given. Never mention API keys, functions, tools, Gemini, WebSockets, JSON, or any technical details.
+
+STEP 0: Ask whether the person is a NEW user who wants to register, or an EXISTING user who wants to log in.
+
+IF NEW USER (registration flow):
+1. Ask which role they want to join as: ज़मीन मालिक (Land Owner), मज़दूर (Labour), or मशीनरी मालिक (Machinery Owner). Map the answer to registering_as: "land_owner", "labour", or "machinery".
+2. Ask their full name.
+3. Ask their address or village name.
+4. If registering_as is "land_owner", ask how many एकड़ (acres) of land they have and send it as land_size. If registering_as is "machinery", ask how many मशीनें (machines) they have and send it as machines_available. If registering_as is "labour", skip this question.
+5. Ask them to say a password to protect their account (tell them once: "कृपया एक पासवर्ड बताएं जो कम से कम 4 अक्षर का हो"). This becomes their account password, so ask clearly.
+6. Once you have registering_as, name, address, password (and land_size or machines_available if applicable), call register_user with those values.
+7. If register_user's result has status "error" with message about a missing or invalid item (for example a longer password), apologize briefly, ask again only for that item, then call register_user again.
+7b. If register_user's result has status "error" with message "registration_failed" (a generic backend problem, not about a specific field), say once: "माफ़ कीजिए, अभी दिक्कत आ रही है। एक बार फिर कोशिश करते हैं।" and call register_user again with the same details. If it fails a second time this way, say: "अभी सिस्टम में दिक्कत है। कृपया थोड़ी देर बाद दोबारा कोशिश करें।" and stop — do not keep retrying silently.
+8. On success, register_user's result includes a "username" field. Say: "आपका खाता बन गया है। आपका यूज़रनेम है" followed by that username spoken clearly, then "आपको आपके डैशबोर्ड पर ले जाया जा रहा है। धन्यवाद।" Telling them their username matters — it's how they can log in later if voice login ever has trouble recognizing their name.
+
+IF EXISTING USER (login flow):
+1. Ask their full name.
+2. Ask their password.
+3. Call login_user with name and password.
+4. If the result has status "error" with message "invalid_credentials", tell them their नाम या पासवर्ड (name or password) may be wrong and ask them to say the name and password again, then call login_user again.
+4b. If the result has status "error" with message "login_failed" (a generic backend problem, not about their credentials), say once: "माफ़ कीजिए, अभी दिक्कत आ रही है। एक बार फिर कोशिश करते हैं।" and call login_user again with the same details. If it fails a second time this way, say: "अभी सिस्टम में दिक्कत है। कृपया थोड़ी देर बाद दोबारा कोशिश करें।" and stop — do not keep retrying silently.
+5. On success, say: "आपका लॉगिन सफल हो गया है। आपको आपके डैशबोर्ड पर ले जाया जा रहा है।"` }]
+                        },
+                        tools: [{
+                            functionDeclarations: [
+                                {
+                                    name: "register_user",
+                                    description: "Create a new Wage Wave account for a first-time user and log them in.",
+                                    parameters: {
+                                        type: "OBJECT",
+                                        properties: {
+                                            name: { type: "STRING", description: "The user's full name, used as their display name and to derive their username." },
+                                            registering_as: { type: "STRING", enum: ["land_owner", "labour", "machinery"], description: "Which role the user is joining as." },
+                                            address: { type: "STRING", description: "The user's address or village." },
+                                            password: { type: "STRING", description: "The password the user chose, at least 4 characters." },
+                                            land_size: { type: "NUMBER", description: "Acres of land available. Only ask for this if registering_as is land_owner." },
+                                            machines_available: { type: "INTEGER", description: "Number of machines available. Only ask for this if registering_as is machinery." }
+                                        },
+                                        required: ["name", "registering_as", "address", "password"]
+                                    }
+                                },
+                                {
+                                    name: "login_user",
+                                    description: "Log in an existing Wage Wave user by name and password.",
+                                    parameters: {
+                                        type: "OBJECT",
+                                        properties: {
+                                            name: { type: "STRING", description: "The user's full name, as given at registration." },
+                                            password: { type: "STRING", description: "The user's account password." }
+                                        },
+                                        required: ["name", "password"]
+                                    }
+                                }
+                            ]
+                        }]
+                    }
+                }));
+            };
+
+            ws.onmessage = async (event) => {
+                const text = event.data instanceof Blob ? await event.data.text() : event.data;
+                const data = JSON.parse(text);
+
+                if (data.error) {
+                    console.error("Gemini Details:", data.error);
+                    stopAll({
+                        idleMessage: "सर्वर ने अनुरोध अस्वीकार कर दिया। कृपया दोबारा कोशिश करें।<br><small style='color:#777;'>(Server rejected the request: " + data.error.message + ")</small>",
+                        isError: true,
+                    });
+                    return;
+                }
+
+                if (data.setupComplete) {
+                    isConnecting = false;
+                    connectRetries = 0;
+                    startAudioProcessing();
+                    updateUI("listening");
+                }
+
+                if (data.serverContent?.modelTurn?.parts) {
+                    for (const part of data.serverContent.modelTurn.parts) {
+                        if (part.inlineData?.mimeType.startsWith("audio/pcm")) {
+                            playAudioChunk(part.inlineData.data);
+                        }
+                    }
+                }
+
+                if (data.toolCall) {
+                    console.log("Gemini requested a function call:", data.toolCall);
+                    handleToolCall(data.toolCall);
+                }
+            };
+
+            ws.onerror = (error) => {
+                // onclose always fires right after onerror and is where we
+                // actually update the UI — keep this handler to logging only.
+                console.error("WebSocket Error:", error);
+            };
+
+            ws.onclose = (event) => {
+                console.warn("WebSocket closed with code:", event.code, "reason:", event.reason || "(none)");
+
+                if (userStopped) {
+                    stopAll();
+                    return;
+                }
+
+                if (isConnecting) {
+                    // Handshake never finished, so no conversation state to
+                    // lose — safe to quietly retry a couple of times before
+                    // bothering the user with an error.
+                    if (connectRetries < MAX_CONNECT_RETRIES) {
+                        connectRetries++;
+                        updateUI("connecting", `दोबारा कोशिश हो रही है... (${connectRetries}/${MAX_CONNECT_RETRIES})`);
+                        reconnectTimer = setTimeout(openWebSocket, 700);
+                        return;
+                    }
+                    stopAll({
+                        idleMessage: `कनेक्ट नहीं हो सका। माइक बटन दबाकर दोबारा कोशिश करें।<br><small style='color:#777;'>(Connection failed, code ${event.code}. Tap the mic to retry.)</small>`,
+                        isError: true,
+                    });
+                    return;
+                }
+
+                // The conversation had already started and then the socket
+                // dropped — this is the "silently didn't work" case. Say so
+                // clearly instead of quietly resetting to the idle screen.
+                stopAll({
+                    idleMessage: `बातचीत बीच में कट गई। माइक बटन दबाकर दोबारा शुरू करें।<br><small style='color:#777;'>(Connection dropped mid-conversation, code ${event.code}. Tap the mic to start again.)</small>`,
+                    isError: true,
+                });
+            };
+        }
+
+        // ==========================================
+        // 4. AUDIO INPUT PROCESSING
+        // ==========================================
+        function startAudioProcessing() {
+            inputAudioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+            const inputSource = inputAudioContext.createMediaStreamSource(localStream);
+            processor = inputAudioContext.createScriptProcessor(4096, 1, 1);
+            
+            processor.onaudioprocess = (e) => {
+                if (!ws || ws.readyState !== WebSocket.OPEN) return;
+
+                const inputData = e.inputBuffer.getChannelData(0);
+                const pcmBuffer = new ArrayBuffer(inputData.length * 2);
+                const view = new DataView(pcmBuffer);
+
+                for (let i = 0; i < inputData.length; i++) {
+                    let sample = Math.max(-1, Math.min(1, inputData[i]));
+                    view.setInt16(i * 2, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+                }
+
+                const bytes = new Uint8Array(pcmBuffer);
+                let binary = "";
+                for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+                
+                ws.send(JSON.stringify({
+                    realtimeInput: { audio: { data: btoa(binary), mimeType: "audio/pcm;rate=16000" } }
+                }));
+            };
+
+            const silentGain = inputAudioContext.createGain();
+            silentGain.gain.value = 0;
+            inputSource.connect(processor);
+            processor.connect(silentGain);
+            silentGain.connect(inputAudioContext.destination);
+            
+            microphoneRunning = true;
+        }
+
+        // ==========================================
+        // 5. AUDIO PLAYBACK ENGINE
+        // ==========================================
+        function playAudioChunk(base64Str) {
+            if (!audioContext) return;
+            const binaryString = atob(base64Str);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
+            
+            const usableLength = bytes.byteLength - (bytes.byteLength % 2);
+            const int16Array = new Int16Array(bytes.slice(0, usableLength).buffer);
+            const float32Array = new Float32Array(int16Array.length);
+            for (let i = 0; i < int16Array.length; i++) float32Array[i] = int16Array[i] / 32768;
+
+            const audioBuffer = audioContext.createBuffer(1, float32Array.length, 24000);
+            audioBuffer.getChannelData(0).set(float32Array);
+            
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(audioContext.destination);
+            
+            if (nextPlayTime < audioContext.currentTime) nextPlayTime = audioContext.currentTime;
+            source.start(nextPlayTime);
+            nextPlayTime += audioBuffer.duration;
+        }
+
+        // ==========================================
+        // 6. ACCOUNT REGISTRATION / LOGIN & CLEANUP
+        // ==========================================
+        const AUTH_ENDPOINTS = {
+            register_user: "/api/voice-register/",
+            login_user: "/api/voice-login/"
+        };
+
+        async function handleToolCall(toolCall) {
+            const calls = toolCall.functionCalls || [];
+            if (calls.length === 0) return;
+
+            for (const call of calls) {
+                const endpoint = AUTH_ENDPOINTS[call.name];
+                if (!endpoint) continue;
+
+                let result;
+                try {
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(call.args || {})
+                    });
+                    result = await res.json();
+                } catch (err) {
+                    console.error("Auth request failed:", err);
+                    result = { status: "error", message: String(err) };
+                }
+
+                // Tell the model whether it worked so it can either wrap up
+                // or ask the user to repeat/correct something.
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({
+                        toolResponse: { functionResponses: [{ id: call.id, name: call.name, response: result }] }
+                    }));
+                }
+
+                if (result.status === "success") {
+                    document.getElementById("successTitle").innerText =
+                        call.name === "register_user" ? "खाता बन गया!" : "लॉगिन सफल!";
+                    activeScreen.style.display = "none";
+                    successScreen.style.display = "block";
+
+                    // Give the model a couple of seconds to finish speaking
+                    // the confirmation before we navigate away and tear the
+                    // session down.
+                    setTimeout(() => {
+                        window.location.href = result.redirect || "/dashboard/";
+                    }, 3000);
+                }
+                // On error we deliberately do nothing to the UI here — the
+                // model has the error in its toolResponse and will ask the
+                // user (by voice) to correct the problem and try again.
+            }
+        }
+
+        function stopAll(options = {}) {
+            const { keepSuccessScreen = false, idleMessage = null, isError = false } = options;
+            microphoneRunning = false;
+            isConnecting = false;
+
+            if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+            if (processor) { processor.disconnect(); processor.onaudioprocess = null; processor = null; }
+            if (localStream) { localStream.getTracks().forEach(t => t.stop()); localStream = null; }
+            if (inputAudioContext) { inputAudioContext.close().catch(()=>{}); inputAudioContext = null; }
+            if (ws && ws.readyState !== WebSocket.CLOSED) ws.close();
+
+            if (!keepSuccessScreen) updateUI("idle", idleMessage, isError);
+        }
+
+        window.addEventListener("beforeunload", () => stopAll());
+    </script>
+</body>
+</html>

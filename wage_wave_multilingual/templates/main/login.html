@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Wage Wave | {% trans "Log in" %}{% endblock %}
+
+{% block content %}
+<section class="form-page login-page">
+    <div class="form-intro">
+        <p class="eyebrow">{% trans "Welcome back" %}</p>
+        <h1>{% trans "Pick up where you left off." %}</h1>
+        <p>{% trans "Log in to see your place in the next project." %}</p>
+    </div>
+    <form class="account-form" method="post">
+        {% csrf_token %}
+        {% if error %}<div class="form-error">{{ error }}</div>{% endif %}
+        <div class="field"><label for="username">{% trans "Username" %}</label><input id="username" name="username" type="text" required autofocus></div>
+        <div class="field"><label for="password">{% trans "Password" %}</label><input id="password" name="password" type="password" required></div>
+        <button class="primary-action form-submit" type="submit">{% trans "Log in" %} <span aria-hidden="true">&rarr;</span></button>
+        <p class="form-switch">{% trans "New to Wage Wave?" %} <a href="{% url 'register' %}">{% trans "Create a profile" %}</a></p>
+    </form>
+</section>
+{% endblock %}

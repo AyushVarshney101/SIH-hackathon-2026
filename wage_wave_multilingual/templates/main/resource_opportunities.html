@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load inr %}
+
+{% block title %}Wage Wave | {{ resource_title }}{% endblock %}
+
+{% block content %}
+<section class="opportunities-page opportunities-{{ resource }}">
+    <a class="back-link" href="{% url 'marketplace' %}">&larr; {% trans "Back to Marketplace" %}</a>
+    <p class="eyebrow">{% trans "Wage Wave opportunities" %}</p>
+    <h1>{{ resource_title }}</h1>
+    <p class="page-intro">{{ resource_intro }}</p>
+
+    {% if projects %}
+        <div class="opportunity-list">
+            {% for project in projects %}
+                <article class="project-card opportunity-card">
+                    <div class="project-card-heading">
+                        <div>
+                            <p class="project-status"><span class="status-dot status-{{ project.status }}"></span>{{ project.get_status_display }}</p>
+                            <h2>{{ project.project_name }}</h2>
+                        </div>
+                        <span class="project-address">{{ project.address }}</span>
+                    </div>
+                    <div class="project-resources">
+                        <div><span>{% trans "Land" %}</span><strong class="{% if project.land_owner %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if project.land_owner %}&#10003;{% else %}&#9675;{% endif %}</b>{% if project.land_owner %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                        <div><span>{% trans "Labour" %}</span><strong class="{% if project.labour %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if project.labour %}&#10003;{% else %}&#9675;{% endif %}</b>{% if project.labour %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                        <div><span>{% trans "Machinery" %}</span><strong class="{% if project.machinery_contributor %}resource-ready{% else %}resource-vacant{% endif %}"><b>{% if project.machinery_contributor %}&#10003;{% else %}&#9675;{% endif %}</b>{% if project.machinery_contributor %}{% trans "Available" %}{% else %}{% trans "Needed" %}{% endif %}</strong></div>
+                    </div>
+                    <div class="project-metrics">
+                        <div><span>{% trans "Expected timeline" %}</span><strong>{{ project.expected_timeline }}</strong></div>
+                        <div><span>{% trans "Expected revenue" %}</span><strong>₹{{ project.expected_revenue|inr }}</strong></div>
+                    </div>
+                    {% trans "No description has been added yet." as no_description %}
+                    <p class="opportunity-description">{{ project.description|default:no_description }}</p>
+                    <div class="project-card-footer opportunity-footer">
+                        <a class="text-action" href="{% url 'project_detail' project.id %}">{% trans "View project" %} <span aria-hidden="true">&rarr;</span></a>
+                        <form method="post" action="{% if resource == 'labour' %}{% url 'enrol_labour' project.id %}{% elif resource == 'land' %}{% url 'enrol_land' project.id %}{% else %}{% url 'enrol_machinery' project.id %}{% endif %}">
+                            {% csrf_token %}
+                            <button class="button button-primary" type="submit">{% trans "Enrol" %} <span aria-hidden="true">&rarr;</span></button>
+                        </form>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-projects">
+            <p class="eyebrow">{% trans "All caught up" %}</p>
+            <h2>{% blocktrans with resource_title_lower=resource_title|lower %}No open {{ resource_title_lower }} opportunities.{% endblocktrans %}</h2>
+            <p>{% trans "New projects will appear here when they need this resource." %}</p>
+            <a class="button button-secondary" href="{% url 'current_projects' %}">{% trans "View current projects" %} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

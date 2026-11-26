@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Wage Wave | {% trans "Farming works better together" %}{% endblock %}
+
+{% block content %}
+<div class="home-redesign">
+    <section class="home-hero home-redesign-hero">
+        <div class="hero-copy">
+            <p class="eyebrow">{% trans "A cooperative farming network" %}</p>
+            <!-- Restored to h1 for SEO, but reduced the size using inline CSS -->
+            <h1 style="font-size: 6.75rem;">WAGE<em> WAVE</em></h1>
+            <p class="hero-tagline">{% trans "Idle land. Ready hands. Useful machines. Wage Wave brings them together to create collaborative farming projects." %}</p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="{% url 'register' %}" style="font-size: 1.25rem; padding: 0.85rem 1.75rem;">{% trans "Register" %} <span aria-hidden="true">&rarr;</span></a>
+                <a class="button button-secondary" href="{% url 'login' %}" style="font-size: 1.25rem; padding: 0.85rem 1.75rem;">{% trans "Log In" %}</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-visual" aria-label="{% trans 'Farmland, farmers, and agricultural machinery' %}">
+        <figure class="home-visual-large">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1400&q=85" alt="{% trans 'Green farmland ready to be cultivated' %}">
+            <figcaption>{% trans "Farmland ready for its next season" %}</figcaption>
+        </figure>
+        <div class="home-visual-stack">
+            <figure>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTm68j3WVqs_wPDtZGz1hYiJ-LMnGtZPjgaxN2a7lX1a-MJpxZgzDB6If270soXDc&s=10&ec=121966380">
+                <figcaption>{% trans "People ready to work" %}</figcaption>
+            </figure>
+            <figure>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwVrXyTJ_8fmIt0nWwHEJvUqXLRKqNyV2tyr41wzY7w&s=10" alt="{% trans 'Tractor working on agricultural land' %}">
+                <figcaption>{% trans "Machinery ready to move" %}</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="home-motive" id="what-we-do">
+        <div>
+            <p class="eyebrow">{% trans "Our motive" %}</p>
+            <h2>{% trans "Make what is waiting become productive." %}</h2>
+        </div>
+        <p class="home-motive-copy">{% trans "Wage Wave exists to help unused farmland produce again, create opportunities for farmers, and put idle machinery to work. When these resources meet, a new farming project can begin." %}</p>
+    </section>
+
+    <section class="home-flow" aria-labelledby="how-it-works-title">
+        <div class="home-flow-heading">
+            <p class="eyebrow">{% trans "How the idea works" %}</p>
+            <h2 id="how-it-works-title">{% trans "Three resources. One shared harvest." %}</h2>
+        </div>
+        <div class="flow-track">
+            <div class="flow-node"><span class="flow-icon">▱</span><strong>{% trans "LAND" %}</strong></div>
+            <span class="flow-plus" aria-hidden="true">+</span>
+            <div class="flow-node"><span class="flow-icon">♧</span><strong>{% trans "LABOUR" %}</strong></div>
+            <span class="flow-plus" aria-hidden="true">+</span>
+            <div class="flow-node"><span class="flow-icon">▰</span><strong>{% trans "MACHINERY" %}</strong></div>
+            <span class="flow-arrow" aria-hidden="true">&darr;</span>
+            <div class="flow-result"><span>WAGE WAVE</span><strong>{% trans "FARMING PROJECT" %}</strong></div>
+        </div>
+    </section>
+
+    <section class="home-final-cta">
+        <p class="eyebrow">{% trans "Ready to contribute?" %}</p>
+        <h2>{% trans "Have land, skills or machinery?" %}</h2>
+        <a class="button button-light" href="{% url 'register' %}" style="font-size: 1.15rem; padding: 0.75rem 1.5rem;">{% trans "Register" %} <span aria-hidden="true">&rarr;</span></a>
+    </section>
+</div>
+{% endblock %}

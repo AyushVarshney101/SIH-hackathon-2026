@@ -1,0 +1,59 @@
+Good morning everyone,
+
+In rural areas, we have people looking for work, farmland that is not being used, and agricultural machinery that remains idle for entire crop maturity period.
+
+
+Why not pool them to create a group which can generate economic value?
+that is exactly what my solution is Presenting Wage Wave by my team OmniLucid.
+
+In omni lucid we call these resource pools projects. 
+soo, a project is a predesigned customizable template in which farmers/machinery owners/land owners can enroll themselves or create a new one as per they need
+Once all the basic resources for the project is gathered then the status of project can be changed to In progress from To Be Started.
+
+
+
+{{{
+
+PROTOTYPE SHOW CASE: 
+
+Home page overview
+
+registering as a new user 
+enrolling in a project
+creating a new project
+
+logging in as some different type of audience
+enrolling in the freshly created project
+log out
+
+log in by the previous user name(who created the project)
+showing that by entering wrong password it don't let us log in 
+showing that the other person enrolled in the project will be shown in this person's account too.
+
+finally changing the status of the project to completed.
+
+}}}
+
+
+
+soo, here is the version zero of the solution we tried to create, 
+let's talk about the uniqueness and viability of our solution
+1. as everyone is doing it collaborately, hence everyone has stake in it and as we know in India people are very serious about the things they own
+2. 
+
+talking about the scale of impact we want to create,
+there is more than 10 million hectare of land left uncultivated which can be converted into agricultural land growing our agriculture sector by more than 50 thousand crores.
+one more thing I like to mention there are a major percentage of the village farming workforce is unemployed or working contractually with not a fair wage/ sometimes being exploited too because they doesn't own a land.
+
+Wage Wave is a promise of mine to create trust through transparency, efficiency through free market dynamics and above all drive the price of food low to make it accessible to every single Indian.
+
+there is a comparison table I present in my ppt to showcase our uniqueness in the present market.
+
+Thank You All
+Singing off
+Omni Lucid.
+
+
+
+
+
